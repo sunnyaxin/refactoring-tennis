@@ -16,19 +16,12 @@ public class TennisGame1 implements TennisGame {
 
     private int score1 = 0;
     private int score2 = 0;
-    private String player1Name;
-    private String player2Name;
-
-    public TennisGame1(String player1Name, String player2Name) {
-        this.player1Name = player1Name;
-        this.player2Name = player2Name;
-    }
 
     public void wonPoint(String playerName) {
         if (playerName.equals(PLAYER_ONE))
-            score1 += 1;
+            score1++;
         else
-            score2 += 1;
+            score2++;
     }
 
     public String getScore() {
