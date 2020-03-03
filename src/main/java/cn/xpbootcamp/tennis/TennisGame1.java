@@ -31,7 +31,7 @@ public class TennisGame1 implements TennisGame {
 
     public String getScore() {
         if (hasSameScore()) return printSameScore();
-        else if (hasLargeScoreGap()) return printLargeScore();
+        else if (hasLargeScore()) return printLargeScore();
         return printSmallScore();
     }
 
@@ -39,7 +39,7 @@ public class TennisGame1 implements TennisGame {
         return score1 == score2;
     }
 
-    private boolean hasLargeScoreGap() {
+    private boolean hasLargeScore() {
         return score1 >= 4 || score2 >= 4;
     }
 
