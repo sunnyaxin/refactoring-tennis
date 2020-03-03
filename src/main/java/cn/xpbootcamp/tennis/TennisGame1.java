@@ -1,5 +1,17 @@
 package cn.xpbootcamp.tennis;
 
+import static cn.xpbootcamp.tennis.Constants.ADVANTAGE;
+import static cn.xpbootcamp.tennis.Constants.ALL;
+import static cn.xpbootcamp.tennis.Constants.DEUCE;
+import static cn.xpbootcamp.tennis.Constants.DIVIDER;
+import static cn.xpbootcamp.tennis.Constants.FIFTEEN;
+import static cn.xpbootcamp.tennis.Constants.FORTY;
+import static cn.xpbootcamp.tennis.Constants.LOVE;
+import static cn.xpbootcamp.tennis.Constants.PLAYER_ONE;
+import static cn.xpbootcamp.tennis.Constants.PLAYER_TWO;
+import static cn.xpbootcamp.tennis.Constants.THIRTY;
+import static cn.xpbootcamp.tennis.Constants.WIN_FOR;
+
 public class TennisGame1 implements TennisGame {
 
     private int score1 = 0;
@@ -13,7 +25,7 @@ public class TennisGame1 implements TennisGame {
     }
 
     public void wonPoint(String playerName) {
-        if (playerName.equals("player1"))
+        if (playerName.equals(PLAYER_ONE))
             score1 += 1;
         else
             score2 += 1;
@@ -25,43 +37,43 @@ public class TennisGame1 implements TennisGame {
         if (score1 == score2) {
             switch (score1) {
                 case 0:
-                    score = "Love-All";
+                    score = LOVE + ALL;
                     break;
                 case 1:
-                    score = "Fifteen-All";
+                    score = FIFTEEN + ALL;
                     break;
                 case 2:
-                    score = "Thirty-All";
+                    score = THIRTY + ALL;
                     break;
                 default:
-                    score = "Deuce";
+                    score = DEUCE;
                     break;
             }
         } else if (score1 >= 4 || score2 >= 4) {
             int minusResult = score1 - score2;
-            if (minusResult == 1) score = "Advantage player1";
-            else if (minusResult == -1) score = "Advantage player2";
-            else if (minusResult >= 2) score = "Win for player1";
-            else score = "Win for player2";
+            if (minusResult == 1) score = ADVANTAGE + PLAYER_ONE;
+            else if (minusResult == -1) score = ADVANTAGE + PLAYER_TWO;
+            else if (minusResult >= 2) score = WIN_FOR + PLAYER_ONE;
+            else score = WIN_FOR + PLAYER_TWO;
         } else {
             for (int i = 1; i < 3; i++) {
                 if (i == 1) tempScore = score1;
                 else {
-                    score += "-";
+                    score += DIVIDER;
                     tempScore = score2;
                 }
                 switch (tempScore) {
                     case 0:
-                        score += "Love";
+                        score += LOVE;
                         break;
                     case 1:
-                        score += "Fifteen";
+                        score += FIFTEEN;
                         break;
                     case 2:
-                        score += "Thirty";
+                        score += THIRTY;
                         break;
                     case 3:
-                        score += "Forty";
+                        score += FORTY;
                         break;
                 }
             }
