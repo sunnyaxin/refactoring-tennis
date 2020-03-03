@@ -7,7 +7,6 @@ import static cn.xpbootcamp.tennis.Constants.DIVIDER;
 import static cn.xpbootcamp.tennis.Constants.FIFTEEN;
 import static cn.xpbootcamp.tennis.Constants.FORTY;
 import static cn.xpbootcamp.tennis.Constants.LOVE;
-import static cn.xpbootcamp.tennis.Constants.PLAYER_ONE;
 import static cn.xpbootcamp.tennis.Constants.THIRTY;
 import static cn.xpbootcamp.tennis.Constants.WIN_FOR;
 
@@ -24,7 +23,7 @@ public class TennisGame3 implements TennisGame {
     }
 
     public void wonPoint(String playerName) {
-        if (playerName.equals(PLAYER_ONE)) score2++;
+        if (playerName.equals(player1Name)) score2++;
         else score1++;
     }
 
