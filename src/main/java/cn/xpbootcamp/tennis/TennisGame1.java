@@ -18,22 +18,14 @@ public class TennisGame1 implements TennisGame {
     private int score2 = 0;
 
     public void wonPoint(String playerName) {
-        if (playerName.equals(PLAYER_ONE))
-            score1++;
-        else
-            score2++;
+        if (playerName.equals(PLAYER_ONE)) score1++;
+        else score2++;
     }
 
     public String getScore() {
-        String score = "";
-        if (hasSameScore()) {
-            score = printSameScore();
-        } else if (hasLargeScoreGap()) {
-            score = printLargeScore();
-        } else {
-            score = printSmallScore(score);
-        }
-        return score;
+        if (hasSameScore()) return printSameScore();
+        else if (hasLargeScoreGap()) return printLargeScore();
+        return printSmallScore();
     }
 
     private boolean hasSameScore() {
@@ -45,57 +37,43 @@ public class TennisGame1 implements TennisGame {
     }
 
     private String printSameScore() {
-        String score;
-        switch (score1) {
-            case 0:
-                score = LOVE + ALL;
-                break;
-            case 1:
-                score = FIFTEEN + ALL;
-                break;
-            case 2:
-                score = THIRTY + ALL;
-                break;
-            default:
-                score = DEUCE;
-                break;
-        }
-        return score;
+        if (score1 < 3) return pointToDescription(score1) + ALL;
+        else return DEUCE;
     }
 
     private String printLargeScore() {
-        String score;
         int minusResult = score1 - score2;
-        if (minusResult == 1) score = ADVANTAGE + PLAYER_ONE;
-        else if (minusResult == -1) score = ADVANTAGE + PLAYER_TWO;
-        else if (minusResult >= 2) score = WIN_FOR + PLAYER_ONE;
-        else score = WIN_FOR + PLAYER_TWO;
-        return score;
+        if (minusResult == 1) return ADVANTAGE + PLAYER_ONE;
+        else if (minusResult == -1) return ADVANTAGE + PLAYER_TWO;
+        else if (minusResult >= 2) return WIN_FOR + PLAYER_ONE;
+        else return WIN_FOR + PLAYER_TWO;
     }
 
-    private String printSmallScore(String score) {
+    private String printSmallScore() {
         int tempScore;
+        String score = "";
         for (int i = 1; i < 3; i++) {
             if (i == 1) tempScore = score1;
             else {
                 score += DIVIDER;
                 tempScore = score2;
             }
-            switch (tempScore) {
-                case 0:
-                    score += LOVE;
-                    break;
-                case 1:
-                    score += FIFTEEN;
-                    break;
-                case 2:
-                    score += THIRTY;
-                    break;
-                case 3:
-                    score += FORTY;
-                    break;
-            }
+            score += pointToDescription(tempScore);
         }
         return score;
+    }
+
+    private String pointToDescription(int score) {
+        switch (score) {
+            case 0:
+                return LOVE;
+            case 1:
+                return FIFTEEN;
+            case 2:
+                return THIRTY;
+            case 3:
+                return FORTY;
+        }
+        return "";
     }
 }
