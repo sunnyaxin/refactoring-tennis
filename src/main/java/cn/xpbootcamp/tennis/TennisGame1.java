@@ -50,17 +50,7 @@ public class TennisGame1 implements TennisGame {
     }
 
     private String printSmallScore() {
-        int tempScore;
-        String score = "";
-        for (int i = 1; i < 3; i++) {
-            if (i == 1) tempScore = score1;
-            else {
-                score += DIVIDER;
-                tempScore = score2;
-            }
-            score += pointToDescription(tempScore);
-        }
-        return score;
+        return pointToDescription(score1) + DIVIDER + pointToDescription(score2);
     }
 
     private String pointToDescription(int score) {
@@ -71,9 +61,8 @@ public class TennisGame1 implements TennisGame {
                 return FIFTEEN;
             case 2:
                 return THIRTY;
-            case 3:
+            default:
                 return FORTY;
         }
-        return "";
     }
 }
