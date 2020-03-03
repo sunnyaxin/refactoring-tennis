@@ -23,6 +23,11 @@ public class TennisGame3 implements TennisGame {
         this.player2Name = player2Name;
     }
 
+    public void wonPoint(String playerName) {
+        if (playerName.equals(PLAYER_ONE)) score2++;
+        else score1++;
+    }
+
     public String getScore() {
         String playerName;
         if (score2 < 4 && score1 < 4 && !(score2 + score1 == 6)) {
@@ -30,17 +35,9 @@ public class TennisGame3 implements TennisGame {
             playerName = descriptions[score2];
             return (score2 == score1) ? playerName + ALL : playerName + DIVIDER + descriptions[score1];
         } else {
-            if (score2 == score1)
-                return DEUCE;
+            if (score2 == score1) return DEUCE;
             playerName = score2 > score1 ? player1Name : player2Name;
             return ((score2 - score1) * (score2 - score1) == 1) ? ADVANTAGE + playerName : WIN_FOR + playerName;
         }
-    }
-
-    public void wonPoint(String playerName) {
-        if (playerName.equals(PLAYER_ONE))
-            this.score2 += 1;
-        else
-            this.score1 += 1;
     }
 }

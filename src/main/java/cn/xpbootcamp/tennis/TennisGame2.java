@@ -18,12 +18,10 @@ public class TennisGame2 implements TennisGame {
 
     public String P1res = "";
     public String P2res = "";
-    private String player1Name;
-    private String player2Name;
 
-    public TennisGame2(String player1Name, String player2Name) {
-        this.player1Name = player1Name;
-        this.player2Name = player2Name;
+    public void wonPoint(String player) {
+        if (player.equals(PLAYER_ONE)) score1++;
+        else score2++;
     }
 
     public String getScore() {
@@ -101,12 +99,5 @@ public class TennisGame2 implements TennisGame {
             score = WIN_FOR + PLAYER_TWO;
         }
         return score;
-    }
-
-    public void wonPoint(String player) {
-        if (player.equals(PLAYER_ONE))
-            score1++;
-        else
-            score2++;
     }
 }
