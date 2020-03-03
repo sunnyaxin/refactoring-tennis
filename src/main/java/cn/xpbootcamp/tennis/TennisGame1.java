@@ -17,6 +17,8 @@ public class TennisGame1 implements TennisGame {
     private int score1 = 0;
     private int score2 = 0;
 
+    private String[] scoreDescription = new String[]{LOVE, FIFTEEN, THIRTY, FORTY};
+
     public void wonPoint(String playerName) {
         if (playerName.equals(PLAYER_ONE)) score1++;
         else score2++;
@@ -37,7 +39,7 @@ public class TennisGame1 implements TennisGame {
     }
 
     private String printSameScore() {
-        if (score1 < 3) return pointToDescription(score1) + ALL;
+        if (score1 < 3) return scoreDescription[score1] + ALL;
         else return DEUCE;
     }
 
@@ -50,19 +52,6 @@ public class TennisGame1 implements TennisGame {
     }
 
     private String printSmallScore() {
-        return pointToDescription(score1) + DIVIDER + pointToDescription(score2);
-    }
-
-    private String pointToDescription(int score) {
-        switch (score) {
-            case 0:
-                return LOVE;
-            case 1:
-                return FIFTEEN;
-            case 2:
-                return THIRTY;
-            default:
-                return FORTY;
-        }
+        return scoreDescription[score1] + DIVIDER + scoreDescription[score2];
     }
 }
