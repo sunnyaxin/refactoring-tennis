@@ -44,16 +44,14 @@ public class TennisGame1 implements TennisGame {
     }
 
     private String printSameScore() {
-        if (score1 < 3) return scoreDescription[score1] + ALL;
-        else return DEUCE;
+        return score1 < 3 ? scoreDescription[score1] + ALL : DEUCE;
     }
 
     private String printLargeScore() {
         int minusResult = score1 - score2;
-        if (minusResult == 1) return ADVANTAGE + player1Name;
-        else if (minusResult == -1) return ADVANTAGE + player2Name;
-        else if (minusResult >= 2) return WIN_FOR + player1Name;
-        else return WIN_FOR + player2Name;
+        String winnerName = minusResult > 0 ? player1Name : player2Name;
+        if (Math.abs(minusResult) < 2) return ADVANTAGE + winnerName;
+        else return WIN_FOR + winnerName;
     }
 
     private String printSmallScore() {
