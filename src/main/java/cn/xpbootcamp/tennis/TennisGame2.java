@@ -11,9 +11,9 @@ import static cn.xpbootcamp.tennis.Constants.THIRTY;
 import static cn.xpbootcamp.tennis.Constants.WIN_FOR;
 
 public class TennisGame2 implements TennisGame {
-    public int score1 = 0;
-    public int score2 = 0;
 
+    private int score1 = 0;
+    private int score2 = 0;
     private String player1Name;
     private String player2Name;
 
@@ -30,23 +30,10 @@ public class TennisGame2 implements TennisGame {
     }
 
     public String getScore() {
-        String score = "";
-        if (hasSameScore()) {
-            return printSameScore();
-        } else if (hasSmallScore()) {
-            return printSmallScore();
-        } else if (hasWinnerScore()) {
-            return printWinnerScore();
-        }
-
-        if (score1 > score2 && score2 >= 3) {
-            score = ADVANTAGE + player1Name;
-        }
-
-        if (score2 > score1 && score1 >= 3) {
-            score = ADVANTAGE + player2Name;
-        }
-        return score;
+        if (hasSameScore()) return printSameScore();
+        else if (hasSmallScore()) return printSmallScore();
+        else if (hasWinnerScore()) return printWinnerScore();
+        else return printAdvantageScore();
     }
 
     private boolean hasSameScore() {
@@ -73,5 +60,10 @@ public class TennisGame2 implements TennisGame {
     private String printWinnerScore() {
         String winnerPlayer = score1 - score2 > 0 ? player1Name : player2Name;
         return WIN_FOR + winnerPlayer;
+    }
+
+    private String printAdvantageScore() {
+        String advancePlayer = score1 - score2 > 0 ? player1Name : player2Name;
+        return ADVANTAGE + advancePlayer;
     }
 }
