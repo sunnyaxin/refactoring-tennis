@@ -20,6 +20,8 @@ public class TennisGame2 implements TennisGame {
     private String player1Name;
     private String player2Name;
 
+    private String[] scoreDescription = new String[]{LOVE, FIFTEEN, THIRTY, FORTY};
+
     public TennisGame2(String player1Name, String player2Name) {
         this.player1Name = player1Name;
         this.player2Name = player2Name;
@@ -32,17 +34,9 @@ public class TennisGame2 implements TennisGame {
 
     public String getScore() {
         String score = "";
-        if (score1 == score2 && score1 < 4) {
-            if (score1 == 0)
-                score = LOVE;
-            if (score1 == 1)
-                score = FIFTEEN;
-            if (score1 == 2)
-                score = THIRTY;
-            score += ALL;
+        if (hasSameScore()) {
+            return printSameScore();
         }
-        if (score1 == score2 && score1 >= 3)
-            score = DEUCE;
 
         if (score1 > 0 && score2 == 0) {
             if (score1 == 1)
@@ -105,5 +99,13 @@ public class TennisGame2 implements TennisGame {
             score = WIN_FOR + player2Name;
         }
         return score;
+    }
+
+    private String printSameScore() {
+        return score1 < 3 ? scoreDescription[score1] + ALL : DEUCE;
+    }
+
+    private boolean hasSameScore() {
+        return score1 == score2;
     }
 }
