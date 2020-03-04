@@ -35,6 +35,8 @@ public class TennisGame2 implements TennisGame {
             return printSameScore();
         } else if (hasSmallScore()) {
             return printSmallScore();
+        } else if (hasWinnerScore()) {
+            return printWinnerScore();
         }
 
         if (score1 > score2 && score2 >= 3) {
@@ -43,13 +45,6 @@ public class TennisGame2 implements TennisGame {
 
         if (score2 > score1 && score1 >= 3) {
             score = ADVANTAGE + player2Name;
-        }
-
-        if (score1 >= 4 && score2 >= 0 && (score1 - score2) >= 2) {
-            score = WIN_FOR + player1Name;
-        }
-        if (score2 >= 4 && score1 >= 0 && (score2 - score1) >= 2) {
-            score = WIN_FOR + player2Name;
         }
         return score;
     }
@@ -62,11 +57,21 @@ public class TennisGame2 implements TennisGame {
         return score1 < 4 && score2 < 4 && score1 != score2;
     }
 
+    private boolean hasWinnerScore() {
+        int higherScore = Math.max(score1, score2);
+        return higherScore >= 4 && Math.abs(score1 - score2) >= 2;
+    }
+
     private String printSameScore() {
         return score1 < 3 ? scoreDescription[score1] + ALL : DEUCE;
     }
 
     private String printSmallScore() {
         return scoreDescription[score1] + DIVIDER + scoreDescription[score2];
+    }
+
+    private String printWinnerScore() {
+        String winnerPlayer = score1 - score2 > 0 ? player1Name : player2Name;
+        return WIN_FOR + winnerPlayer;
     }
 }
