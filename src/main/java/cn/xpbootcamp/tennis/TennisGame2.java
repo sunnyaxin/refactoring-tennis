@@ -14,9 +14,6 @@ public class TennisGame2 implements TennisGame {
     public int score1 = 0;
     public int score2 = 0;
 
-    public String P1res = "";
-    public String P2res = "";
-
     private String player1Name;
     private String player2Name;
 
@@ -36,52 +33,8 @@ public class TennisGame2 implements TennisGame {
         String score = "";
         if (hasSameScore()) {
             return printSameScore();
-        }
-
-        if (score1 > 0 && score2 == 0) {
-            if (score1 == 1)
-                P1res = FIFTEEN;
-            if (score1 == 2)
-                P1res = THIRTY;
-            if (score1 == 3)
-                P1res = FORTY;
-
-            P2res = LOVE;
-            score = P1res + DIVIDER + P2res;
-        }
-        if (score2 > 0 && score1 == 0) {
-            if (score2 == 1)
-                P2res = FIFTEEN;
-            if (score2 == 2)
-                P2res = THIRTY;
-            if (score2 == 3)
-                P2res = FORTY;
-
-            P1res = LOVE;
-            score = P1res + DIVIDER + P2res;
-        }
-
-        if (score1 > score2 && score1 < 4) {
-            if (score1 == 2)
-                P1res = THIRTY;
-            if (score1 == 3)
-                P1res = FORTY;
-            if (score2 == 1)
-                P2res = FIFTEEN;
-            if (score2 == 2)
-                P2res = THIRTY;
-            score = P1res + DIVIDER + P2res;
-        }
-        if (score2 > score1 && score2 < 4) {
-            if (score2 == 2)
-                P2res = THIRTY;
-            if (score2 == 3)
-                P2res = FORTY;
-            if (score1 == 1)
-                P1res = FIFTEEN;
-            if (score1 == 2)
-                P1res = THIRTY;
-            score = P1res + DIVIDER + P2res;
+        } else if (hasSmallScore()) {
+            return printSmallScore();
         }
 
         if (score1 > score2 && score2 >= 3) {
@@ -101,11 +54,19 @@ public class TennisGame2 implements TennisGame {
         return score;
     }
 
+    private boolean hasSameScore() {
+        return score1 == score2;
+    }
+
+    private boolean hasSmallScore() {
+        return score1 < 4 && score2 < 4 && score1 != score2;
+    }
+
     private String printSameScore() {
         return score1 < 3 ? scoreDescription[score1] + ALL : DEUCE;
     }
 
-    private boolean hasSameScore() {
-        return score1 == score2;
+    private String printSmallScore() {
+        return scoreDescription[score1] + DIVIDER + scoreDescription[score2];
     }
 }
