@@ -1,25 +1,15 @@
 package cn.xpbootcamp.tennis;
 
-import static cn.xpbootcamp.tennis.Constants.ADVANTAGE;
-import static cn.xpbootcamp.tennis.Constants.ALL;
-import static cn.xpbootcamp.tennis.Constants.DEUCE;
-import static cn.xpbootcamp.tennis.Constants.DIVIDER;
-import static cn.xpbootcamp.tennis.Constants.FIFTEEN;
-import static cn.xpbootcamp.tennis.Constants.FORTY;
-import static cn.xpbootcamp.tennis.Constants.LOVE;
-import static cn.xpbootcamp.tennis.Constants.THIRTY;
-import static cn.xpbootcamp.tennis.Constants.WIN_FOR;
-
-public class TennisGame1 implements TennisGame {
+public class TennisGameImpl implements TennisGame {
 
     private int score1 = 0;
     private int score2 = 0;
     private String player1Name;
     private String player2Name;
 
-    private String[] scoreDescription = new String[]{LOVE, FIFTEEN, THIRTY, FORTY};
+    private String[] scoreDescription = new String[]{"Love", "Fifteen", "Thirty", "Forty"};
 
-    public TennisGame1(String player1Name, String player2Name) {
+    public TennisGameImpl(String player1Name, String player2Name) {
         this.player1Name = player1Name;
         this.player2Name = player2Name;
     }
@@ -44,17 +34,17 @@ public class TennisGame1 implements TennisGame {
     }
 
     private String printSameScore() {
-        return score1 < 3 ? scoreDescription[score1] + ALL : DEUCE;
+        return score1 < 3 ? scoreDescription[score1] + "-All" : "Deuce";
     }
 
     private String printLargeScore() {
         int minusResult = score1 - score2;
         String winnerName = minusResult > 0 ? player1Name : player2Name;
-        if (Math.abs(minusResult) < 2) return ADVANTAGE + winnerName;
-        else return WIN_FOR + winnerName;
+        if (Math.abs(minusResult) < 2) return "Advantage " + winnerName;
+        else return "Win for " + winnerName;
     }
 
     private String printSmallScore() {
-        return scoreDescription[score1] + DIVIDER + scoreDescription[score2];
+        return scoreDescription[score1] + "-" + scoreDescription[score2];
     }
 }
