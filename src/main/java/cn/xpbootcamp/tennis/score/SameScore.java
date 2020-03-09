@@ -10,7 +10,7 @@ public class SameScore extends Score {
 
     @Override
     public boolean isApplied() {
-        return player1.getScore() == player2.getScore();
+        return player1.hasSameScoreWith(player2);
     }
 
     @Override

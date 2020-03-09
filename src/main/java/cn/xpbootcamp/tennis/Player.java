@@ -20,4 +20,15 @@ public class Player {
     public void wonScore() {
         score++;
     }
+
+    public boolean hasSameScoreWith(Player player) {
+        return score == player.getScore();
+    }
+
+    public boolean hasWonAgainst(Player player) {
+        return score >= 4 && score - player.score >= 2;
+    }
+    public boolean hasAdvantageOver(Player player) {
+        return score >= 4 && score - player.score == 1;
+    }
 }

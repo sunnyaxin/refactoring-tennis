@@ -10,13 +10,11 @@ public class AdvantageScore extends Score {
 
     @Override
     public boolean isApplied() {
-        return (player1.getScore() >= 4 || player2.getScore() >= 4) && Math.abs(player1.getScore() - player2.getScore()) < 2;
+        return player1.hasAdvantageOver(player2) || player2.hasAdvantageOver(player1);
     }
 
     @Override
     public String description() {
-        int minusResult = player1.getScore() - player2.getScore();
-        String advantageName = minusResult > 0 ? player1.getName() : player2.getName();
-        return "Advantage " + advantageName;
+        return "Advantage " + (player1.hasAdvantageOver(player2) ? player1.getName() : player2.getName());
     }
 }
