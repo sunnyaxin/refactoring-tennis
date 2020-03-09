@@ -19,31 +19,46 @@ public class TennisGameImpl implements TennisGame {
     }
 
     public String getScore() {
-        if (hasSameScore()) return printSameScore();
-        else if (hasLargeScore()) return printLargeScore();
-        return printSmallScore();
+        if (hasSameScore()) {
+            return printSameScore();
+        } else if (hasAdvantageScore()) {
+            return printAdvantageScore();
+        } else if (hasWinnerScore()) {
+            return printWinnerScore();
+        } else {
+            return printRegularScore();
+        }
     }
 
     private boolean hasSameScore() {
         return player1.getScore() == player2.getScore();
     }
 
-    private boolean hasLargeScore() {
-        return player1.getScore() >= 4 || player2.getScore() >= 4;
+    private boolean hasAdvantageScore() {
+        return (player1.getScore() >= 4 || player2.getScore() >= 4) && Math.abs(player1.getScore() - player2.getScore()) < 2;
+    }
+
+    private boolean hasWinnerScore() {
+        return (player1.getScore() >= 4 || player2.getScore() >= 4) && Math.abs(player1.getScore() - player2.getScore()) >= 2;
     }
 
     private String printSameScore() {
         return player1.getScore() < 3 ? scoreDescription[player1.getScore()] + "-All" : "Deuce";
     }
 
-    private String printLargeScore() {
+    private String printAdvantageScore() {
         int minusResult = player1.getScore() - player2.getScore();
-        String winnerName = minusResult > 0 ? player1.getName() : player2.getName();
-        if (Math.abs(minusResult) < 2) return "Advantage " + winnerName;
-        else return "Win for " + winnerName;
+        String advantageName = minusResult > 0 ? player1.getName() : player2.getName();
+        return "Advantage " + advantageName;
     }
 
-    private String printSmallScore() {
+    private String printWinnerScore() {
+        int minusResult = player1.getScore() - player2.getScore();
+        String winnerName = minusResult > 0 ? player1.getName() : player2.getName();
+        return "Win for " + winnerName;
+    }
+
+    private String printRegularScore() {
         return scoreDescription[player1.getScore()] + "-" + scoreDescription[player2.getScore()];
     }
 }
