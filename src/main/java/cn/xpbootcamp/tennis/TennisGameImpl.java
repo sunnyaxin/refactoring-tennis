@@ -1,9 +1,14 @@
 package cn.xpbootcamp.tennis;
 
+import cn.xpbootcamp.tennis.score.AdvantageScore;
+import cn.xpbootcamp.tennis.score.RegularScore;
+import cn.xpbootcamp.tennis.score.SameScore;
+import cn.xpbootcamp.tennis.score.Score;
+import cn.xpbootcamp.tennis.score.WinScore;
+
 public class TennisGameImpl implements TennisGame {
 
     private Player player1, player2;
-    private String[] scoreDescription = new String[]{"Love", "Fifteen", "Thirty", "Forty"};
 
     public TennisGameImpl(String player1Name, String player2Name) {
         player1 = new Player(player1Name);
@@ -19,46 +24,19 @@ public class TennisGameImpl implements TennisGame {
     }
 
     public String getScore() {
-        if (hasSameScore()) {
-            return printSameScore();
-        } else if (hasAdvantageScore()) {
-            return printAdvantageScore();
-        } else if (hasWinnerScore()) {
-            return printWinnerScore();
+        Score sameScore = new SameScore(player1, player2);
+        Score advantageScore = new AdvantageScore(player1, player2);
+        Score winScore = new WinScore(player1, player2);
+        Score regularScore = new RegularScore(player1, player2);
+
+        if (sameScore.isApplied()) {
+            return sameScore.description();
+        } else if (advantageScore.isApplied()) {
+            return advantageScore.description();
+        } else if (winScore.isApplied()) {
+            return winScore.description();
         } else {
-            return printRegularScore();
+            return regularScore.description();
         }
-    }
-
-    private boolean hasSameScore() {
-        return player1.getScore() == player2.getScore();
-    }
-
-    private boolean hasAdvantageScore() {
-        return (player1.getScore() >= 4 || player2.getScore() >= 4) && Math.abs(player1.getScore() - player2.getScore()) < 2;
-    }
-
-    private boolean hasWinnerScore() {
-        return (player1.getScore() >= 4 || player2.getScore() >= 4) && Math.abs(player1.getScore() - player2.getScore()) >= 2;
-    }
-
-    private String printSameScore() {
-        return player1.getScore() < 3 ? scoreDescription[player1.getScore()] + "-All" : "Deuce";
-    }
-
-    private String printAdvantageScore() {
-        int minusResult = player1.getScore() - player2.getScore();
-        String advantageName = minusResult > 0 ? player1.getName() : player2.getName();
-        return "Advantage " + advantageName;
-    }
-
-    private String printWinnerScore() {
-        int minusResult = player1.getScore() - player2.getScore();
-        String winnerName = minusResult > 0 ? player1.getName() : player2.getName();
-        return "Win for " + winnerName;
-    }
-
-    private String printRegularScore() {
-        return scoreDescription[player1.getScore()] + "-" + scoreDescription[player2.getScore()];
     }
 }
